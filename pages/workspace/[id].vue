@@ -7,13 +7,23 @@ export default {
     }
   },
   data: () => ({
-    workspaceName: ''
+    workspaceName: '',
+    board: {
+      name: 'Test',
+      columns: []
+    }
   }),
+  methods: {
+    createColumn() {
+      this.board.columns.push({
+        items: []
+      })
+    }
+  },
   mounted() {
     this.workspaceName = this.workspaceList.find(
       workspace => workspace.id === Number(this.$route.params.id
-    )
-    ).name
+    )).name
   }
 }
 </script>
@@ -21,5 +31,24 @@ export default {
 <template>
   <div>
     <h1>{{ workspaceName }} Workspace (#{{ $route.params.id }})</h1>
+    <section>
+      <h2>{{ board.name }}</h2>
+      <button @click="createColumn">Create Column</button>
+      <div class="column-grid">
+        <ul class="board-column" v-for="column in board.columns" :key="column.id"></ul>
+      </div>
+    </section>
   </div>
 </template>
+
+<style>
+.column-grid {
+  display: grid;
+  grid-template-columns: repeat(v-bind(board.columns.length), 1fr);
+}
+.board-column {
+  border: 1px solid #222;
+  height: 80vh;
+  width: 100px;
+}
+</style>
