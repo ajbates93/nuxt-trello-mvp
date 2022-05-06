@@ -66,4 +66,8 @@ export default {
   height: 80vh;
   width: 100px;
 }
+.board-column input {
+  width: 100%;
+  box-sizing: border-box;
+}
 </style>
